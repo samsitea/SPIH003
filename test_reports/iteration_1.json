@@ -1,0 +1,38 @@
+{
+  "summary": "Verified Vercel npm ERESOLVE deploy fix + full regression of DelayGuard frontend-only landing page. All checks pass.",
+  "deploy_fix_verification": {
+    "npmrc_exists": true,
+    "npmrc_content": "legacy-peer-deps=true",
+    "frontend_vercel_json": "installCommand='npm install --legacy-peer-deps', buildCommand='CI=false npm run build', outputDirectory='build', SPA rewrite -> /index.html — CORRECT",
+    "root_vercel_json": "cd frontend variants for installCommand/buildCommand, outputDirectory='frontend/build', SPA rewrite — CORRECT",
+    "build_artifact": "/app/frontend/build/index.html exists",
+    "reproduction_without_npmrc": "npm install --dry-run FAILED with ERESOLVE (react-day-picker@8.10.1 peer date-fns ^2||^3 vs installed date-fns@4.1.0). Note: the actual peer conflict in the tree is date-fns, not React 19 as originally hypothesized — but the fix (legacy-peer-deps) resolves both classes of conflict identically.",
+    "reproduction_with_npmrc": "npm install --dry-run SUCCEEDED — added 1489 packages in 16s. Fix confirmed."
+  },
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "regression_results": {
+    "landing_/": "Loads. Title: 'DelayGuard — SLA breaches, intercepted before they happen'. Purple-pink theme, hero + nav (The Problem / Agents / Live Demo / Pricing / FAQ / Log in / Get Access) render correctly.",
+    "demo_widget": "Selecting WS-2841 and clicking 'Run the Guardians' animates the 5-agent pipeline (Root-Cause, Prioritization, Action, Orchestrator logs stream). Risk gauge renders '69 RISK/100' with WATCH badge. Action Agent drafts approval email with 'Approve & send' CTA. Fully functional.",
+    "/login": "Loads mock login page ('Your queue has been guarded while you were away.'). Client-side routing works.",
+    "/signup": "Loads mock signup form (Name/Email/Organisation/Department incl. Water Board, Electricity). Client-side routing works."
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Peer conflict root cause is date-fns@4.1.0 vs react-day-picker@8.10.1 (peer ^2||^3), not React 19. If the team ever removes .npmrc or a future npm tightens further, the same ERESOLVE returns. Consider pinning date-fns@^3 or upgrading to react-day-picker v9 as a longer-term fix.",
+    "Both vercel.json files are minimal and correct; no framework auto-detection issue expected."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (no backend in scope)", "frontend": "100%"},
+  "test_credentials": "N/A - auth pages are mock UI only",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Deploy fix verified via ERESOLVE reproduce+fix in /tmp. All 3 vercel/npmrc configs are correct. Landing page + demo widget + /login + /signup all functional at http://localhost:3000. The preview URL https://sla-guardian.preview.emergentagent.com should behave identically once deployed.",
+  "rca of the issue": "npm's default strict peer-dep resolver (npm v7+) blocks install when react-day-picker@8.10.1 declares peer date-fns ^2.28||^3.0 while the project pins date-fns@4.1.0 (and similarly does not declare React 19 peer). Yarn (used locally) ignores these conflicts by default, so build works locally but Vercel (npm) errors with ERESOLVE. Mitigation: /app/frontend/.npmrc with 'legacy-peer-deps=true' + explicit '--legacy-peer-deps' in both vercel.json installCommands. Verified by copying package.json alone (fails ERESOLVE) then adding .npmrc (installs cleanly)."
+}
