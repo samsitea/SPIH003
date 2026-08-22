@@ -1,0 +1,107 @@
+{
+  "theme": "dark",
+  "project_name": "SLA Guardian / DelayGuard",
+  "typography": {
+    "headings": {
+      "family": "Unbounded",
+      "import_url": "@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;600;800&display=swap');",
+      "usage": "H1, H2, H3 - large marketing text. CRITICAL: apply tracking-tighter"
+    },
+    "body": {
+      "family": "IBM Plex Sans",
+      "import_url": "@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');",
+      "usage": "Paragraphs, tooltips, descriptions"
+    },
+    "mono": {
+      "family": "JetBrains Mono",
+      "import_url": "@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');",
+      "usage": "Agent logs, risk score numbers, developer/tech details, overlines, and terminal UI outputs."
+    }
+  },
+  "colors": {
+    "background": "#030712",
+    "surface": "#0f172a",
+    "surface_glass": "rgba(255, 255, 255, 0.03)",
+    "border": "rgba(255, 255, 255, 0.08)",
+    "primary": "#00F0FF",
+    "primary_glow": "rgba(0, 240, 255, 0.4)",
+    "alert_watch": "#FFD600",
+    "alert_critical": "#FF3366",
+    "text_primary": "#F8FAFC",
+    "text_secondary": "#94A3B8"
+  },
+  "visual_enhancers": {
+    "noise_overlay": "Implement a fixed pointer-events-none noise SVG overlay at 3% opacity over the entire app to give a cinematic grainy feel.",
+    "glassmorphism": "Use backdrop-blur-xl and backdrop-saturate-150 with a 1px solid white/10 border for the header and floating cards.",
+    "glow_effects": "Use drop-shadow-[0_0_15px_rgba(0,240,255,0.5)] on key agent nodes and primary CTAs."
+  },
+  "grids_and_layouts": {
+    "spacing_philosophy": "Generous. Use py-24 or py-32 for section padding. gap-8 or gap-12 for bento grids.",
+    "bento_grid": "For the 'Services' and 'Interactive Demo' sections, use the Mode A Tetris grid. Mix col-span-2, col-span-4, and col-span-8 blocks. Never perfectly symmetrical.",
+    "pipeline_layout": "Horizontal on desktop, vertical on mobile. 5 nodes connected by SVG dashed lines."
+  },
+  "component_instructions": {
+    "buttons": "Pill-shaped (rounded-full). Primary button: bg-transparent border border-[#00F0FF] text-[#00F0FF] hover:bg-[#00F0FF] hover:text-black hover:shadow-[0_0_20px_rgba(0,240,255,0.6)] transition-all duration-300.",
+    "cards": "Flat background (bg-slate-900/50), 1px border-white/10, rounded-2xl. On hover, translate-y-[-4px] and border glows slightly cyan.",
+    "nav_bar": "Sticky top, crystal glass effect (bg-slate-950/60 backdrop-blur-xl border-b border-white/10). DO NOT MAKE FULLY TRANSPARENT."
+  },
+  "motion_and_interactions": {
+    "libraries": [
+      "framer-motion",
+      "lucide-react",
+      "react-fast-marquee",
+      "clsx",
+      "tailwind-merge"
+    ],
+    "hero_animation": "Use Framer Motion to stagger in the H1, subtitle, and CTA. Add a floating animation to a 3D or abstract data background.",
+    "pipeline_animation": "Animate a small glowing 'data packet' (a div or SVG circle) along a path connecting the 5 agents: Intake -> Risk Scoring -> Root-Cause -> Prioritization -> Action. The Orchestrator sits above, receiving pulses.",
+    "live_demo_widget": "When a user clicks a department icon, show a 'loading/scanning' state with JetBrains Mono random characters changing rapidly for 1 second, then reveal the Risk Gauge (animating from 0 to 85%), Priority rank, and the plain language root-cause.",
+    "marquee": "Use react-fast-marquee for Testimonials/Voice of the Community. Dark cards with subtle border, user avatars.",
+    "scroll_reveals": "Use framer-motion whileInView to slide up and fade in sections (y: 40, opacity: 0 -> y: 0, opacity: 1)."
+  },
+  "media": {
+    "dashboard_screenshots": [
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTJ8MHwxfHNlYXJjaHwxfHxkYXJrJTIwbW9kZSUyMGRhc2hib2FyZCUyMFVJfGVufDB8fHx8MTc4NzQwODk4OXww&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1763718528755-4bca23f82ac3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTJ8MHwxfHNlYXJjaHwyfHxkYXJrJTIwbW9kZSUyMGRhc2hib2FyZCUyMFVJfGVufDB8fHx8MTc4NzQwODk4OXww&ixlib=rb-4.1.0&q=85"
+    ],
+    "avatars": [
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBoZWFkc2hvdCUyMHBvcnRyYWl0fGVufDB8fHx8MTc4NzQwODk4OHww&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBoZWFkc2hvdCUyMHBvcnRyYWl0fGVufDB8fHx8MTc4NzQwODk4OHww&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1609436132311-e4b0c9370469?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHw0fHxwcm9mZXNzaW9uYWwlMjBoZWFkc2hvdCUyMHBvcnRyYWl0fGVufDB8fHx8MTc4NzQwODk4OHww&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwyfHxwcm9mZXNzaW9uYWwlMjBoZWFkc2hvdCUyMHBvcnRyYWl0fGVufDB8fHx8MTc4NzQwODk4OHww&ixlib=rb-4.1.0&q=85"
+    ],
+    "abstract_backgrounds": [
+      "https://images.unsplash.com/photo-1579567761406-4684ee0c75b6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxNzV8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMGRhcmslMjBkYXRhJTIwZ2xvd2luZyUyMG5vZGVzfGVufDB8fHx8MTc4NzQwODk4OXww&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1758073519996-6d3c63b4922c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxNzV8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGRhcmslMjBkYXRhJTIwZ2xvd2luZyUyMG5vZGVzfGVufDB8fHx8MTc4NzQwODk4OXww&ixlib=rb-4.1.0&q=85"
+    ]
+  },
+  "sections_guidance": {
+    "hero": "H1 text-5xl md:text-7xl tracking-tighter. Use JetBrains Mono for a tech overline. Background should feature glowing blue/cyan abstract nodes. CTA: 'Initialize Demo'.",
+    "agent_pipeline": "Section title: 'The SLA Guardian Architecture'. Render 5 distinct nodes (boxes with lucide icons) arranged horizontally. 1: Intake. 2: Risk Scoring. 3: Root-Cause. 4: Prioritization. 5: Action. Add an 'Orchestrator' node above them connecting to all. Pulse animations along connection lines.",
+    "live_demo_widget": "Split layout. Left: Select department (lucide icons: Droplets (Water), Zap (Electricity), Trash2 (Sanitation), FileText (Permits), Activity (Healthcare), Landmark (Tax)). Right: A retro-futuristic terminal UI showing Risk Score (circular gauge or progress bar colored Red for Critical, Yellow for Watch), Priority Rank, and a Typewriter effect for the Root Cause explanation.",
+    "problem_solution": "Use contrasting colors or split-screen. 'The Problem: Bottlenecks go unnoticed until SLAs breach.' vs 'The Solution: Predictive agentic foresight.'",
+    "features_bento": "Bento grid of services. Use subtle gradient borders (Tracing beam effect) to highlight.",
+    "roadmap": "A vertical timeline showing 'Features in Development' (e.g., 'Automated Email Dispatch', 'Cross-departmental API sync').",
+    "testimonials": "Marquee slider of avatars and comments like 'Reduced our SLA breaches by 84% in Q1.'",
+    "dashboard_showcase": "Large prominent screenshot of the actual product UI (use the provided dashboard_screenshots) wrapped in a glassmorphic frame with floating metrics.",
+    "pricing": "3 tiers. Highlight the middle one with an electric cyan border and a glowing tag.",
+    "faq": "Accordion component for FAQs. Keep it sleek, 1px bottom borders.",
+    "auth": "Simple login/signup modal or dedicated section with glassmorphism over a dark grainy background."
+  },
+  "accessibility": {
+    "contrast": "Ensure neon cyan text on dark background passes WCAG AA.",
+    "motion": "Use prefers-reduced-motion media query to disable heavy pulses.",
+    "testing": "All interactive elements MUST include data-testid attribute (e.g., data-testid='dept-water-btn', data-testid='run-demo-btn')."
+  },
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "No generic centered layouts. Use optical alignment and purposeful asymmetry.",
+    "Implement a noise/grain texture globally using a fixed SVG overlay.",
+    "Avoid purple-on-white gradients completely. Stick strictly to the neon cyan/void black palette.",
+    "Use 2-3x more spacing (py-24, gap-12).",
+    "Never use generic AI emojis (like bot face or brain). Use lucide-react icons.",
+    "Apply hover animations (translate-y, box-shadow) to all cards and buttons.",
+    "DO NOT use a fully transparent header. Use backdrop-blur with a semi-transparent background.",
+    "Do not apply `transition: all` globally. Apply specific transitions to interactive elements.",
+    "Always add `data-testid` to buttons, inputs, and clickable items."
+  ]
+}
