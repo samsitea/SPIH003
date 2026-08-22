@@ -13,7 +13,7 @@ module.exports = {
                 mono: ['"JetBrains Mono"', 'monospace'],
             },
             colors: {
-                neon: '#00F0FF',
+                neon: '#00E5A0',
                 watch: '#FFD600',
                 critical: '#FF3366',
                 void: '#030712',

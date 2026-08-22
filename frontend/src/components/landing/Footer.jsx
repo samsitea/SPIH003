@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ShieldCheck, ArrowRight, Github } from "lucide-react";
+import { ShieldCheck, ArrowRight } from "lucide-react";
 import { Reveal, scrollToId } from "./shared";
 
 export const Footer = () => (
@@ -14,7 +14,7 @@ export const Footer = () => (
                 <div className="mt-10 flex flex-wrap justify-center gap-4">
                     <Link
                         to="/signup"
-                        className="group inline-flex items-center gap-2.5 rounded-full bg-neon text-black font-semibold px-8 py-4 hover:shadow-[0_0_30px_rgba(0,240,255,0.7)] transition-shadow duration-300"
+                        className="group inline-flex items-center gap-2.5 rounded-full bg-neon text-black font-semibold px-8 py-4 hover:shadow-[0_0_30px_rgba(0,229,160,0.7)] transition-shadow duration-300"
                         data-testid="footer-cta-btn"
                     >
                         Deploy DelayGuard
@@ -34,7 +34,7 @@ export const Footer = () => (
                 <div className="flex items-center gap-3">
                     <ShieldCheck className="w-5 h-5 text-neon" />
                     <span className="font-display text-sm tracking-tight">DelayGuard</span>
-                    <span className="font-mono text-[10px] text-slate-600 tracking-widest">· SLA GUARDIAN · TEAM DELAYGUARD</span>
+                    <span className="font-mono text-[10px] text-slate-600 tracking-widest">· SLA GUARDIAN</span>
                 </div>
                 <div className="flex items-center gap-7 font-mono text-[11px] text-slate-500 tracking-wider">
                     {["#problem", "#agents", "#demo", "#pricing"].map((h) => (
@@ -42,11 +42,8 @@ export const Footer = () => (
                             {h.slice(1).toUpperCase()}
                         </button>
                     ))}
-                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-neon transition-colors flex items-center gap-1.5" data-testid="footer-github-link">
-                        <Github className="w-3.5 h-3.5" /> GITHUB
-                    </a>
                 </div>
-                <p className="font-mono text-[10px] text-slate-600 tracking-widest">HACKATHON · ROUND 3 · 2026</p>
+                <p className="font-mono text-[10px] text-slate-600 tracking-widest">© 2026 DELAYGUARD</p>
             </div>
         </div>
     </footer>

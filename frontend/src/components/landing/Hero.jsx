@@ -5,6 +5,21 @@ import { CountUp, EASE, scrollToId } from "./shared";
 
 const LINES = ["Every SLA breach", "is visible", "days in advance."];
 
+const PARTICLES = [
+    { left: "6%", top: "22%", delay: "0s", dur: "8s" },
+    { left: "14%", top: "64%", delay: "1.2s", dur: "10s" },
+    { left: "23%", top: "38%", delay: "0.6s", dur: "9s" },
+    { left: "31%", top: "78%", delay: "2s", dur: "11s" },
+    { left: "42%", top: "18%", delay: "0.9s", dur: "8.5s" },
+    { left: "50%", top: "58%", delay: "1.7s", dur: "10.5s" },
+    { left: "58%", top: "30%", delay: "0.3s", dur: "9.5s" },
+    { left: "66%", top: "70%", delay: "2.4s", dur: "12s" },
+    { left: "74%", top: "20%", delay: "1.1s", dur: "8s" },
+    { left: "82%", top: "52%", delay: "0.5s", dur: "10s" },
+    { left: "90%", top: "76%", delay: "1.9s", dur: "9s" },
+    { left: "95%", top: "34%", delay: "2.8s", dur: "11s" },
+];
+
 const MaskedLine = ({ text, delay, accent }) => (
     <span className="block overflow-hidden pb-1 -mb-1">
         <motion.span
@@ -40,23 +55,19 @@ export const Hero = () => {
 
     return (
         <section id="top" ref={ref} onMouseMove={onMove} className="relative min-h-screen grid-bg overflow-hidden pt-[72px]" data-testid="hero-section">
-            <div className="absolute -top-40 left-1/4 w-[560px] h-[560px] rounded-full bg-neon/10 blur-[140px] pointer-events-none" />
-            <div className="absolute bottom-0 right-0 w-[420px] h-[420px] rounded-full bg-cyan-700/10 blur-[120px] pointer-events-none" />
+            <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+                <div className="absolute -top-40 left-1/4 w-[560px] h-[560px] rounded-full bg-neon/10 blur-[140px] animate-drift-a" />
+                <div className="absolute bottom-0 right-0 w-[420px] h-[420px] rounded-full bg-emerald-600/10 blur-[120px] animate-drift-b" />
+                <div className="absolute top-1/3 -left-24 w-[380px] h-[380px] rounded-full bg-neon/5 blur-[110px] animate-drift-c" />
+                {PARTICLES.map((p, i) => (
+                    <span key={i} className="hero-particle" style={{ left: p.left, top: p.top, animationDelay: p.delay, animationDuration: p.dur }} />
+                ))}
+                <div className="hero-beam" />
+            </div>
 
             <div className="relative max-w-7xl mx-auto px-6 pt-20 lg:pt-28 pb-16 grid lg:grid-cols-12 gap-16 items-center">
                 <div className="lg:col-span-7">
-                    <motion.p
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
-                        className="font-mono text-xs tracking-[0.35em] text-neon uppercase flex items-center gap-3"
-                        data-testid="hero-overline"
-                    >
-                        <span className="inline-block w-8 h-px bg-neon/60" />
-                        Agentic AI for service delivery
-                    </motion.p>
-
-                    <h1 className="font-display mt-8 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tighter leading-[1.04]" data-testid="hero-heading">
+                    <h1 className="font-display mt-2 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tighter leading-[1.04]" data-testid="hero-heading">
                         <MaskedLine text={LINES[0]} delay={0.25} />
                         <MaskedLine text={LINES[1]} delay={0.38} />
                         <MaskedLine text={LINES[2]} delay={0.51} accent />
@@ -82,7 +93,7 @@ export const Hero = () => {
                     >
                         <button
                             onClick={() => scrollToId("#demo")}
-                            className="group inline-flex items-center gap-2.5 rounded-full bg-neon text-black font-semibold px-7 py-3.5 hover:shadow-[0_0_30px_rgba(0,240,255,0.7)] transition-shadow duration-300"
+                            className="group inline-flex items-center gap-2.5 rounded-full bg-neon text-black font-semibold px-7 py-3.5 hover:shadow-[0_0_30px_rgba(0,229,160,0.7)] transition-shadow duration-300"
                             data-testid="hero-run-demo-btn"
                         >
                             <Radar className="w-5 h-5" />
@@ -91,7 +102,7 @@ export const Hero = () => {
                         </button>
                         <button
                             onClick={() => scrollToId("#agents")}
-                            className="rounded-full border border-neon/50 text-neon px-7 py-3.5 hover:bg-neon hover:text-black hover:shadow-[0_0_20px_rgba(0,240,255,0.6)] transition-colors duration-300"
+                            className="rounded-full border border-neon/50 text-neon px-7 py-3.5 hover:bg-neon hover:text-black hover:shadow-[0_0_20px_rgba(0,229,160,0.6)] transition-colors duration-300"
                             data-testid="hero-meet-agents-btn"
                         >
                             Meet the agents

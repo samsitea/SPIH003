@@ -48,13 +48,13 @@ export const Pricing = () => (
                             className={cn(
                                 "relative h-full rounded-2xl p-8 flex flex-col border transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1.5",
                                 p.hot
-                                    ? "bg-slate-900/70 border-neon shadow-[0_0_36px_rgba(0,240,255,0.18)]"
+                                    ? "bg-slate-900/70 border-neon shadow-[0_0_36px_rgba(0,229,160,0.18)]"
                                     : "bg-slate-900/50 border-white/10 hover:border-white/25"
                             )}
                             data-testid={`plan-${p.name.toLowerCase().replace(/[\s/]+/g, "-")}`}
                         >
                             {p.hot && (
-                                <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 rounded-full bg-neon text-black font-mono text-[10px] tracking-widest px-4 py-1.5 shadow-[0_0_20px_rgba(0,240,255,0.6)]">
+                                <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 inline-flex items-center gap-1.5 rounded-full bg-neon text-black font-mono text-[10px] tracking-widest px-4 py-1.5 shadow-[0_0_20px_rgba(0,229,160,0.6)]">
                                     <Zap className="w-3 h-3" /> MOST DEPLOYED
                                 </span>
                             )}
@@ -77,7 +77,7 @@ export const Pricing = () => (
                                 className={cn(
                                     "mt-8 inline-flex justify-center rounded-full px-6 py-3.5 text-sm font-semibold transition-colors duration-300",
                                     p.hot
-                                        ? "bg-neon text-black hover:shadow-[0_0_26px_rgba(0,240,255,0.7)]"
+                                        ? "bg-neon text-black hover:shadow-[0_0_26px_rgba(0,229,160,0.7)]"
                                         : "border border-white/20 text-slate-200 hover:border-neon hover:text-neon"
                                 )}
                                 data-testid={`plan-cta-${p.name.toLowerCase().replace(/[\s/]+/g, "-")}`}

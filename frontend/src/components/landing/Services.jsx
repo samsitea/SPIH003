@@ -23,7 +23,7 @@ export const Services = () => (
                 {SERVICES.map((s, i) => (
                     <Reveal key={s.title} delay={i * 0.07} className={s.span}>
                         <div
-                            className="group relative h-full bg-slate-900/50 border border-white/10 rounded-2xl p-7 overflow-hidden hover:-translate-y-1.5 hover:border-neon/50 hover:shadow-[0_0_24px_rgba(0,240,255,0.14)] transition-[transform,border-color,box-shadow] duration-300"
+                            className="group relative h-full bg-slate-900/50 border border-white/10 rounded-2xl p-7 overflow-hidden hover:-translate-y-1.5 hover:border-neon/50 hover:shadow-[0_0_24px_rgba(0,229,160,0.14)] transition-[transform,border-color,box-shadow] duration-300"
                             data-testid={`service-${s.title.toLowerCase().replace(/\s+/g, "-")}`}
                         >
                             <div className="absolute -top-16 -right-16 w-40 h-40 bg-neon/5 rounded-full blur-2xl group-hover:bg-neon/15 transition-colors duration-500" />

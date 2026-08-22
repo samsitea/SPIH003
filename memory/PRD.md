@@ -13,6 +13,7 @@ Hackathon Round 3: build a startup-worthy marketing/explainer landing page for "
 - Hackathon judges assessing Round 3 rubric (functional, responsive, animated, live demo)
 
 ## Implemented (2026-08-22)
+- v2 rebrand: emerald-mint (#00E5A0) on deep black-green (#04080A) replacing neon cyan; hero overline removed; animated hero background (drifting aurora orbs, floating particles, sweeping light beam); all hackathon/team/GitHub references removed for a professional startup look
 - Kinetic hero: masked line-by-line reveal, mouse-parallax 3D console frame, floating alert chips, count-up stats
 - Editorial slow marquee, numbered manifesto chapters (problem/shift/trust)
 - AgentFlow: orchestrator node with pulse rings, 5 agent cards, animated dashed connectors, two-tier calibration strip

@@ -42,7 +42,7 @@ export const Manifesto = () => (
                             data-testid={`manifesto-chapter-${c.num}`}
                         >
                             <div className="md:col-span-3 flex md:flex-col items-center md:items-start gap-4">
-                                <span className="font-display text-5xl lg:text-6xl font-light text-transparent [-webkit-text-stroke:1px_rgba(0,240,255,0.4)]">{c.num}</span>
+                                <span className="font-display text-5xl lg:text-6xl font-light text-transparent [-webkit-text-stroke:1px_rgba(0,229,160,0.4)]">{c.num}</span>
                                 <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-neon/70 border border-neon/25 rounded-full px-3 py-1">{c.tag}</span>
                             </div>
                             <div className="md:col-span-4">
