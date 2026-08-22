@@ -71,7 +71,9 @@ export function runPipeline(reqId) {
         `which lifts it to #${rank} of ${all.length} open requests.`;
 
     const dominant = r.stageC >= r.deadlineC && r.stageC >= r.histC ? "stage" : r.deadlineC >= r.histC ? "deadline" : "history";
-    const action = ACTIONS[dominant];
+    const action = r.tier === "STABLE"
+    ? { verb: "Monitor", line: "no immediate action needed — continue routine monitoring" }
+    : ACTIONS[dominant];
     const draft =
         `To: ${DEPARTMENTS.find((d) => d.id === req.dept).label} — ${req.stage} desk\n` +
         `Subject: [${r.tier}] ${req.id} — ${req.service}\n\n` +
