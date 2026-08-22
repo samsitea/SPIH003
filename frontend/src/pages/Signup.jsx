@@ -100,7 +100,7 @@ export default function Signup() {
                     </div>
                     <button
                         type="submit"
-                        className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-neon text-black font-semibold px-6 py-3.5 hover:shadow-[0_0_26px_rgba(0,229,160,0.7)] transition-shadow duration-300"
+                        className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-neon text-black font-semibold px-6 py-3.5 hover:shadow-[0_0_26px_rgba(232,121,249,0.7)] transition-shadow duration-300"
                         data-testid="signup-submit-btn"
                     >
                         <UserPlus className="w-4 h-4" /> Request pilot access

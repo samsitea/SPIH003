@@ -16,7 +16,7 @@ const TIER_STYLE = {
     WATCH: "border-watch/50 bg-watch/10 text-watch",
     STABLE: "border-neon/50 bg-neon/10 text-neon",
 };
-const TIER_HEX = { CRITICAL: "#FF3366", WATCH: "#FFD600", STABLE: "#00E5A0" };
+const TIER_HEX = { CRITICAL: "#FF3366", WATCH: "#FFD600", STABLE: "#E879F9" };
 
 const Gauge = ({ score, tier }) => {
     const R = 52;
@@ -135,7 +135,7 @@ export const DemoWidget = () => {
                                             className={cn(
                                                 "rounded-xl border p-3.5 flex flex-col items-center gap-2 transition-[border-color,background-color,box-shadow] duration-300",
                                                 dept === d.id
-                                                    ? "border-neon bg-neon/10 shadow-[0_0_16px_rgba(0,229,160,0.25)]"
+                                                    ? "border-neon bg-neon/10 shadow-[0_0_16px_rgba(232,121,249,0.25)]"
                                                     : "border-white/10 hover:border-neon/40 bg-white/[0.02]"
                                             )}
                                             data-testid={`dept-${d.id}-btn`}
@@ -172,7 +172,7 @@ export const DemoWidget = () => {
                             <button
                                 onClick={run}
                                 disabled={phase === "scanning" || phase === "running"}
-                                className="mt-8 w-full inline-flex items-center justify-center gap-2.5 rounded-full bg-neon text-black font-semibold px-6 py-3.5 hover:shadow-[0_0_26px_rgba(0,229,160,0.7)] transition-shadow duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="mt-8 w-full inline-flex items-center justify-center gap-2.5 rounded-full bg-neon text-black font-semibold px-6 py-3.5 hover:shadow-[0_0_26px_rgba(232,121,249,0.7)] transition-shadow duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                                 data-testid="run-demo-btn"
                             >
                                 <Play className="w-4 h-4" />

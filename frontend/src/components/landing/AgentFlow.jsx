@@ -46,7 +46,7 @@ export const AgentFlow = () => (
                 {AGENTS.map((a, i) => (
                     <Reveal key={a.n} delay={0.1 + i * 0.1}>
                         <div
-                            className="group relative bg-slate-900/50 border border-white/10 rounded-2xl p-6 h-full hover:-translate-y-1.5 hover:border-neon/50 hover:shadow-[0_0_24px_rgba(0,229,160,0.15)] transition-[transform,border-color,box-shadow] duration-300"
+                            className="group relative bg-slate-900/50 border border-white/10 rounded-2xl p-6 h-full hover:-translate-y-1.5 hover:border-neon/50 hover:shadow-[0_0_24px_rgba(232,121,249,0.15)] transition-[transform,border-color,box-shadow] duration-300"
                             data-testid={`agent-card-${a.name.toLowerCase().replace(/\s+/g, "-")}`}
                         >
                             <div className="flex items-center justify-between">

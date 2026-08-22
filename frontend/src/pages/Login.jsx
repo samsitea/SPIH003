@@ -71,7 +71,7 @@ export default function Login() {
                                 id="login-email" type="email" required value={form.email}
                                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                                 placeholder="officer@dept.gov"
-                                className="mt-2 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-neon/60 focus:shadow-[0_0_16px_rgba(0,229,160,0.15)] transition-[border-color,box-shadow] duration-300"
+                                className="mt-2 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-neon/60 focus:shadow-[0_0_16px_rgba(232,121,249,0.15)] transition-[border-color,box-shadow] duration-300"
                                 data-testid="login-email-input"
                             />
                         </div>
@@ -81,13 +81,13 @@ export default function Login() {
                                 id="login-password" type="password" required value={form.password}
                                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                                 placeholder="••••••••"
-                                className="mt-2 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-neon/60 focus:shadow-[0_0_16px_rgba(0,229,160,0.15)] transition-[border-color,box-shadow] duration-300"
+                                className="mt-2 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-neon/60 focus:shadow-[0_0_16px_rgba(232,121,249,0.15)] transition-[border-color,box-shadow] duration-300"
                                 data-testid="login-password-input"
                             />
                         </div>
                         <button
                             type="submit"
-                            className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-neon text-black font-semibold px-6 py-3.5 hover:shadow-[0_0_26px_rgba(0,229,160,0.7)] transition-shadow duration-300"
+                            className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-neon text-black font-semibold px-6 py-3.5 hover:shadow-[0_0_26px_rgba(232,121,249,0.7)] transition-shadow duration-300"
                             data-testid="login-submit-btn"
                         >
                             <LogIn className="w-4 h-4" /> Enter the console

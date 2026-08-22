@@ -23,7 +23,7 @@ const PARTICLES = [
 const MaskedLine = ({ text, delay, accent }) => (
     <span className="block overflow-hidden pb-1 -mb-1">
         <motion.span
-            className={`block ${accent ? "text-neon text-glow" : "text-slate-50"}`}
+            className={`block ${accent ? "text-grad" : "text-slate-50"}`}
             initial={{ y: "115%" }}
             animate={{ y: 0 }}
             transition={{ duration: 1, delay, ease: EASE }}
@@ -57,7 +57,7 @@ export const Hero = () => {
         <section id="top" ref={ref} onMouseMove={onMove} className="relative min-h-screen grid-bg overflow-hidden pt-[72px]" data-testid="hero-section">
             <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
                 <div className="absolute -top-40 left-1/4 w-[560px] h-[560px] rounded-full bg-neon/10 blur-[140px] animate-drift-a" />
-                <div className="absolute bottom-0 right-0 w-[420px] h-[420px] rounded-full bg-emerald-600/10 blur-[120px] animate-drift-b" />
+                <div className="absolute bottom-0 right-0 w-[420px] h-[420px] rounded-full bg-fuchsia-600/10 blur-[120px] animate-drift-b" />
                 <div className="absolute top-1/3 -left-24 w-[380px] h-[380px] rounded-full bg-neon/5 blur-[110px] animate-drift-c" />
                 {PARTICLES.map((p, i) => (
                     <span key={i} className="hero-particle" style={{ left: p.left, top: p.top, animationDelay: p.delay, animationDuration: p.dur }} />
@@ -93,7 +93,7 @@ export const Hero = () => {
                     >
                         <button
                             onClick={() => scrollToId("#demo")}
-                            className="group inline-flex items-center gap-2.5 rounded-full bg-neon text-black font-semibold px-7 py-3.5 hover:shadow-[0_0_30px_rgba(0,229,160,0.7)] transition-shadow duration-300"
+                            className="group inline-flex items-center gap-2.5 rounded-full bg-neon text-black font-semibold px-7 py-3.5 hover:shadow-[0_0_30px_rgba(232,121,249,0.7)] transition-shadow duration-300"
                             data-testid="hero-run-demo-btn"
                         >
                             <Radar className="w-5 h-5" />
@@ -102,7 +102,7 @@ export const Hero = () => {
                         </button>
                         <button
                             onClick={() => scrollToId("#agents")}
-                            className="rounded-full border border-neon/50 text-neon px-7 py-3.5 hover:bg-neon hover:text-black hover:shadow-[0_0_20px_rgba(0,229,160,0.6)] transition-colors duration-300"
+                            className="rounded-full border border-neon/50 text-neon px-7 py-3.5 hover:bg-neon hover:text-black hover:shadow-[0_0_20px_rgba(232,121,249,0.6)] transition-colors duration-300"
                             data-testid="hero-meet-agents-btn"
                         >
                             Meet the agents

@@ -9,12 +9,12 @@ export const Footer = () => (
             <Reveal className="text-center max-w-3xl mx-auto">
                 <p className="font-mono text-xs tracking-[0.35em] text-neon uppercase">The next breach is already forming</p>
                 <h2 className="font-display mt-6 text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tighter leading-[1.1]">
-                    Stop discovering breaches. <span className="text-neon text-glow">Start intercepting them.</span>
+                    Stop discovering breaches. <span className="text-grad">Start intercepting them.</span>
                 </h2>
                 <div className="mt-10 flex flex-wrap justify-center gap-4">
                     <Link
                         to="/signup"
-                        className="group inline-flex items-center gap-2.5 rounded-full bg-neon text-black font-semibold px-8 py-4 hover:shadow-[0_0_30px_rgba(0,229,160,0.7)] transition-shadow duration-300"
+                        className="group inline-flex items-center gap-2.5 rounded-full bg-neon text-black font-semibold px-8 py-4 hover:shadow-[0_0_30px_rgba(232,121,249,0.7)] transition-shadow duration-300"
                         data-testid="footer-cta-btn"
                     >
                         Deploy DelayGuard

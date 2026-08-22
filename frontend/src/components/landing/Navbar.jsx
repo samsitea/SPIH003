@@ -51,7 +51,7 @@ export const Navbar = () => {
                     </Link>
                     <Link
                         to="/signup"
-                        className="group inline-flex items-center gap-2 rounded-full border border-neon text-neon text-sm px-5 py-2.5 hover:bg-neon hover:text-black hover:shadow-[0_0_20px_rgba(0,229,160,0.6)] transition-colors duration-300"
+                        className="group inline-flex items-center gap-2 rounded-full border border-neon text-neon text-sm px-5 py-2.5 hover:bg-neon hover:text-black hover:shadow-[0_0_20px_rgba(232,121,249,0.6)] transition-colors duration-300"
                         data-testid="nav-get-access-btn"
                     >
                         Get Access <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
