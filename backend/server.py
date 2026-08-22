@@ -1,89 +1,174 @@
 from fastapi import FastAPI, APIRouter
-from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
-import os
-import logging
-from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
-import uuid
 from datetime import datetime, timezone
 
-
-ROOT_DIR = Path(__file__).parent
-load_dotenv(ROOT_DIR / '.env')
-
-# MongoDB connection
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
-
-# Create the main app without a prefix
 app = FastAPI()
-
-# Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
+# ---------------------------------------------------------------------------
+# MOCK DATASET — stand-in for real historical service-request data.
+# Each record represents one pending request currently sitting in a stage.
+# ---------------------------------------------------------------------------
+MOCK_REQUESTS = [
+    {
+        "id": "REQ-4821",
+        "type": "Municipal Permit Renewal",
+        "department": "Zoning",
+        "stage": "Approval",
+        "hours_in_stage": 76.8,          # 3.2 days
+        "stage_avg_hours": 26.4,         # 1.1 days average for this stage
+        "hours_remaining": -4.0,         # already past deadline
+        "sla_total_hours": 96.0,
+        "stage_breach_rate": 0.27,       # this stage breaches 27% of the time
+        "priority_weight": 4,            # 1 (low) - 5 (high impact)
+    },
+    {
+        "id": "REQ-4790",
+        "type": "Records Verification",
+        "department": "Records",
+        "stage": "Verification",
+        "hours_in_stage": 30.0,
+        "stage_avg_hours": 20.0,
+        "hours_remaining": 28.0,
+        "sla_total_hours": 72.0,
+        "stage_breach_rate": 0.14,
+        "priority_weight": 2,
+    },
+    {
+        "id": "REQ-4801",
+        "type": "Grant Disbursement",
+        "department": "Finance",
+        "stage": "Disbursement",
+        "hours_in_stage": 40.0,
+        "stage_avg_hours": 18.0,
+        "hours_remaining": 11.0,
+        "sla_total_hours": 72.0,
+        "stage_breach_rate": 0.31,
+        "priority_weight": 5,
+    },
+    {
+        "id": "REQ-4756",
+        "type": "Business License Review",
+        "department": "Licensing",
+        "stage": "Review",
+        "hours_in_stage": 12.0,
+        "stage_avg_hours": 16.0,
+        "hours_remaining": 74.0,
+        "sla_total_hours": 96.0,
+        "stage_breach_rate": 0.08,
+        "priority_weight": 3,
+    },
+    {
+        "id": "REQ-4699",
+        "type": "Zoning Intake",
+        "department": "Zoning",
+        "stage": "Intake",
+        "hours_in_stage": 4.0,
+        "stage_avg_hours": 10.0,
+        "hours_remaining": 90.0,
+        "sla_total_hours": 96.0,
+        "stage_breach_rate": 0.05,
+        "priority_weight": 1,
+    },
+]
 
-# Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
-    
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-class StatusCheckCreate(BaseModel):
-    client_name: str
+# ---------------------------------------------------------------------------
+# AGENT PIPELINE — each function owns one step, mirroring a human analyst.
+# ---------------------------------------------------------------------------
 
-# Add your routes to the router instead of directly to app
+def risk_scoring_agent(r):
+    """Combine stage overrun, deadline proximity, and historical breach rate."""
+    time_ratio = r["hours_in_stage"] / r["stage_avg_hours"]
+    time_component = min(time_ratio / 3, 1.0)  # cap at 3x average = maxed out
+
+    urgency_component = 1 - (r["hours_remaining"] / r["sla_total_hours"])
+    urgency_component = max(0.0, min(urgency_component, 1.0))
+
+    breach_component = r["stage_breach_rate"]
+
+    score = 100 * (0.4 * time_component + 0.4 * urgency_component + 0.2 * breach_component)
+    return round(min(score, 100), 1), round(time_ratio, 2)
+
+
+def root_cause_agent(r, score, time_ratio):
+    """Turn the score components into a plain-language explanation."""
+    return (
+        f"Stuck at {r['stage']} for {r['hours_in_stage']/24:.1f} days, "
+        f"{time_ratio:.1f}x this stage's average. "
+        f"{r['department']} {r['stage']} has breached SLA in "
+        f"{int(r['stage_breach_rate']*100)}% of past cases."
+    )
+
+
+def tier_for(score):
+    if score >= 75:
+        return "critical"
+    if score >= 45:
+        return "watch"
+    return "stable"
+
+
+def action_agent(r, score, tier):
+    """Recommend and draft an action based on risk tier and breach history."""
+    if tier == "critical" and r["stage_breach_rate"] >= 0.2:
+        return f"Escalate to {r['department']} department lead — recurring bottleneck stage."
+    if tier == "critical":
+        return f"Reassign {r['id']} to an available team member in {r['department']}."
+    if tier == "watch":
+        return f"Add to priority queue — monitor {r['stage']} stage closely."
+    return "No action needed — on track."
+
+
+def run_pipeline(requests):
+    results = []
+    for r in requests:
+        score, time_ratio = risk_scoring_agent(r)
+        tier = tier_for(score)
+        explanation = root_cause_agent(r, score, time_ratio)
+        action = action_agent(r, score, tier)
+        results.append({
+            "id": r["id"],
+            "type": r["type"],
+            "department": r["department"],
+            "stage": r["stage"],
+            "risk_score": score,
+            "tier": tier,
+            "explanation": explanation,
+            "recommended_action": action,
+            "priority_weight": r["priority_weight"],
+            "priority_value": round(score * r["priority_weight"], 1),
+        })
+    # Prioritization agent: rank by risk combined with case impact, not risk alone
+    results.sort(key=lambda x: x["priority_value"], reverse=True)
+    for i, r in enumerate(results, start=1):
+        r["rank"] = i
+    return results
+
+
+# ---------------------------------------------------------------------------
+# ROUTES
+# ---------------------------------------------------------------------------
+
 @api_router.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "SLA Guardian API is running"}
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks():
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).to_list(1000)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    
-    return status_checks
+@api_router.get("/requests")
+async def get_scored_requests():
+    return {
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "results": run_pipeline(MOCK_REQUESTS),
+    }
 
-# Include the router in the main app
+
 app.include_router(api_router)
 
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
-
-@app.on_event("shutdown")
-async def shutdown_db_client():
-    client.close()
